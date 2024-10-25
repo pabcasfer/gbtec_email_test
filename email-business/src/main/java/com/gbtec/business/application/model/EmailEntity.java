@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -22,6 +21,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Builder
@@ -35,17 +35,19 @@ import java.util.List;
 public class EmailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
+    @NonNull
+    @Column(name = "uuid")
     private Long uuid;
 
     @Column(name = "email_from")
     @NonNull
     private String from;
 
-    @OneToMany(cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JoinColumn(name="email_id", referencedColumnName="id", nullable = false)
+
+    @OneToMany(mappedBy = "email", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmailReceiverEntity> receivers;
 
     @CreationTimestamp
@@ -58,4 +60,18 @@ public class EmailEntity {
     private EmailState state;
 
     private String body;
+
+    public List<String> shownReceivers() {
+        return receivers.stream()
+                .filter(emailReceiverEntity -> !emailReceiverEntity.getHidden())
+                .map(EmailReceiverEntity::getEmailTo)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> hiddenReceivers() {
+        return receivers.stream()
+                .filter(EmailReceiverEntity::getHidden)
+                .map(EmailReceiverEntity::getEmailTo)
+                .collect(Collectors.toList());
+    }
 }
