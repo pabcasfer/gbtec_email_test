@@ -1,7 +1,8 @@
 package com.gbtec.business.api.controller;
 
 import com.gbtec.business.api.model.EmailDTO;
-import com.gbtec.business.transport.EmailTransportClient;
+import com.gbtec.business.api.model.conversors.ApiToBusinessConversor;
+import com.gbtec.business.application.service.EmailApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,15 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmailController {
 
     @Autowired
-    private EmailTransportClient client;
+    private EmailApplicationService service;
 
     @RequestMapping(value = "/findById", method = RequestMethod.GET)
     public String findById(@RequestAttribute("id") Long id) {
-        return client.findById(id);
+        return service.findById(id);
     }
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean create(@RequestBody EmailDTO email) {
-        return true;
+        return service.create(ApiToBusinessConversor.email(email));
     }
 }
