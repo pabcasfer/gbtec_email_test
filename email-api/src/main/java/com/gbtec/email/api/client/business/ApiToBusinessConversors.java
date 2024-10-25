@@ -22,4 +22,7 @@ public final class ApiToBusinessConversors {
     private static List<String> extractEmails(List<EmailAccount> emailAccounts) {
         return emailAccounts.stream().map(EmailAccount::getEmail).collect(Collectors.toList());
     }
+
+    private ApiToBusinessConversors() {
+    }
 }
