@@ -2,6 +2,7 @@ package com.gbtec.email.api.controller;
 
 import com.gbtec.email.api.client.business.ApiToBusinessConversors;
 import com.gbtec.email.api.client.business.EmailClient;
+import com.gbtec.email.api.client.business.model.EmailDTO;
 import com.gbtec.email.api.model.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/emails")
 public class EmailController {
@@ -19,7 +22,7 @@ public class EmailController {
     private EmailClient client;
 
     @GetMapping("/findById")
-    public String findById(@RequestParam("id") Long id) {
+    public Optional<EmailDTO> findById(@RequestParam("id") Long id) {
         return client.findById(id);
     }
 

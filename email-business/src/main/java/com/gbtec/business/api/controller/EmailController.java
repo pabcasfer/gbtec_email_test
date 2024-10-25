@@ -5,12 +5,14 @@ import com.gbtec.business.api.model.conversors.ApiToBusinessConversor;
 import com.gbtec.business.application.service.EmailApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("emailsapi")
@@ -19,8 +21,8 @@ public class EmailController {
     @Autowired
     private EmailApplicationService service;
 
-    @RequestMapping(value = "/findById", method = RequestMethod.GET)
-    public String findById(@RequestAttribute("id") Long id) {
+    @GetMapping("/findById")
+    public Optional<EmailDTO> findById(@RequestParam("id") Long id) {
         return service.findById(id);
     }
 
