@@ -16,7 +16,7 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 public final class EmailDTO {
-    private Integer emailId;
+    private Long emailId;
     private String emailFrom;
     private List<String> emailTo;
     private List<String> emailCC;

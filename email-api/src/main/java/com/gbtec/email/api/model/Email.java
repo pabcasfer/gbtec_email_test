@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @ToString
 public final class Email {
-    private Integer emailId;
+    private Long emailId;
     private String emailFrom;
     private List<EmailAccount> emailTo;
     private List<EmailAccount> emailCC;
