@@ -25,6 +25,7 @@ public class EmailController {
 
     @PostMapping("/create")
     public boolean create(@RequestBody Email email) {
+        // FIXME: Use a @ControllerAdvice class and here only return ResponseEntity<Success>
         return client.create(ApiToBusinessConversors.email(email));
     }
 
