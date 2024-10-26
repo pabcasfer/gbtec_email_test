@@ -12,17 +12,16 @@ import java.util.Optional;
 public class ApiToBusinessConversor {
 
     public static EmailEntity email(EmailDTO email) {
-        EmailEntity entity = EmailEntity.builder()
+        final List<EmailReceiverEntity> receivers = new ArrayList<>();
+        email.getEmailTo().forEach(emailAddress -> receivers.add(EmailReceiverEntity.builder().emailTo(emailAddress).hidden(false).build()));
+        email.getEmailCC().forEach(emailAddress -> receivers.add(EmailReceiverEntity.builder().emailTo(emailAddress).hidden(true).build()));
+        return EmailEntity.builder()
                 .uuid(email.getEmailId())
                 .from(email.getEmailFrom())
                 .body(email.getEmailBody())
                 .state(emailState(email.getState()))
+                .receivers(receivers)
                 .build();
-        final List<EmailReceiverEntity> receivers = new ArrayList<>();
-        email.getEmailTo().forEach(emailAddress -> receivers.add(EmailReceiverEntity.builder().email(entity).emailTo(emailAddress).hidden(false).build()));
-        email.getEmailCC().forEach(emailAddress -> receivers.add(EmailReceiverEntity.builder().email(entity).emailTo(emailAddress).hidden(true).build()));
-        entity.setReceivers(receivers);
-        return entity;
     }
 
     private static EmailState emailState(int state) {

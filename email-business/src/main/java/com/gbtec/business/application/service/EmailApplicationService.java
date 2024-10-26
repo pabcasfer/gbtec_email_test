@@ -27,6 +27,7 @@ public class EmailApplicationService {
         if(!email.getState().isUpdatable()) {
             throw new IllegalArgumentException("Given state not allowed");
         }
+        email.getReceivers().forEach(receiver -> receiver.setEmail(email));
         repository.save(email);
         return true;
     }
