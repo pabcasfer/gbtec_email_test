@@ -5,6 +5,7 @@ import com.gbtec.email.api.client.business.EmailClient;
 import com.gbtec.email.api.client.business.model.EmailDTO;
 import com.gbtec.email.api.model.Email;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,5 +33,8 @@ public class EmailController {
         return client.create(ApiToBusinessConversors.email(email));
     }
 
-    // Fill with CRUD operations
+    @DeleteMapping("/delete")
+    public boolean delete(@RequestParam("id") Long id) {
+        return client.delete(id);
+    }
 }

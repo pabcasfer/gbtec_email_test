@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS email (
     id SERIAL PRIMARY KEY,
-    uuid INTEGER UNIQUE NOT NULL,
+    uuid INTEGER NOT NULL,
     email_from VARCHAR(254),
     creation_time TIMESTAMP,
     last_modified_time TIMESTAMP,

@@ -4,7 +4,7 @@ import com.gbtec.business.api.controller.EmailController;
 import com.gbtec.business.application.model.EmailEntity;
 import com.gbtec.business.application.model.EmailReceiverEntity;
 import com.gbtec.business.application.model.EmailState;
-import com.gbtec.business.application.repository.EmailRepository;
+import com.gbtec.business.application.repository.email.EmailRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

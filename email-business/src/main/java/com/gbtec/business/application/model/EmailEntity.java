@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity
+@Entity(name = "email")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -45,7 +45,6 @@ public class EmailEntity {
     @Column(name = "email_from")
     @NonNull
     private String from;
-
 
     @OneToMany(mappedBy = "email", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmailReceiverEntity> receivers;
