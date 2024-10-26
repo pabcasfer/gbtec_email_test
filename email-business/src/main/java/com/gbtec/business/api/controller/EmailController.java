@@ -2,6 +2,7 @@ package com.gbtec.business.api.controller;
 
 import com.gbtec.business.api.model.EmailDTO;
 import com.gbtec.business.api.model.conversors.ApiToBusinessConversor;
+import com.gbtec.business.api.model.conversors.BusinessToApiConversor;
 import com.gbtec.business.application.service.EmailApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,7 +24,7 @@ public class EmailController {
 
     @GetMapping("/findById")
     public Optional<EmailDTO> findById(@RequestParam("id") Long id) {
-        return service.findById(id);
+        return service.findById(id).map(BusinessToApiConversor::email);
     }
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

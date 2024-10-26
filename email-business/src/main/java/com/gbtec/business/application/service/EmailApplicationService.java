@@ -1,7 +1,5 @@
 package com.gbtec.business.application.service;
 
-import com.gbtec.business.api.model.EmailDTO;
-import com.gbtec.business.api.model.conversors.BusinessToApiConversor;
 import com.gbtec.business.application.model.EmailEntity;
 import com.gbtec.business.application.repository.EmailRepository;
 import jakarta.transaction.Transactional;
@@ -17,9 +15,8 @@ public class EmailApplicationService {
     @Autowired
     private EmailRepository repository;
 
-    public Optional<EmailDTO> findById(Long id) {
-        final Optional<EmailEntity> foundEmail = repository.findByUuid(id);
-        return foundEmail.map(BusinessToApiConversor::email);
+    public Optional<EmailEntity> findById(Long id) {
+        return repository.findByUuid(id);
     }
 
     @Transactional
@@ -31,4 +28,6 @@ public class EmailApplicationService {
         repository.save(email);
         return true;
     }
+
+
 }
