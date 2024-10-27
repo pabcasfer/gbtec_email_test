@@ -1,10 +1,10 @@
 package com.gbtec.email.business;
 
-import com.gbtec.business.api.controller.EmailController;
-import com.gbtec.business.application.model.EmailEntity;
-import com.gbtec.business.application.model.EmailReceiverEntity;
-import com.gbtec.business.application.model.EmailState;
-import com.gbtec.business.application.repository.email.EmailRepository;
+import com.gbtec.email.business.api.controller.email.EmailController;
+import com.gbtec.email.business.application.model.EmailEntity;
+import com.gbtec.email.business.application.model.EmailReceiverEntity;
+import com.gbtec.email.business.application.model.EmailState;
+import com.gbtec.email.business.application.repository.email.EmailRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

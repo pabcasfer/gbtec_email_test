@@ -22,7 +22,6 @@
 	<modules>
 		<module>email-api</module>
 		<module>email-business</module>
-		<module>email-transport</module>
 	</modules>
 
 	<dependencies>

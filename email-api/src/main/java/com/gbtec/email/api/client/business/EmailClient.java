@@ -21,6 +21,9 @@ public interface EmailClient {
     @PutMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     boolean create(@RequestBody EmailDTO email);
 
+    @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    boolean update(@RequestBody EmailDTO email);
+
     @DeleteMapping(value = "/delete")
     boolean delete(@RequestParam Long id);
 }

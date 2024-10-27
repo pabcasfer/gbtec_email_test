@@ -9,6 +9,7 @@ import com.gbtec.email.api.model.FindByIdRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,12 @@ public class EmailController {
     public boolean create(@RequestBody EmailRequest email) {
         // FIXME: Use a @ControllerAdvice class and here only return ResponseEntity<Success>
         return client.create(ApiToBusinessConversors.email(email));
+    }
+
+    @PostMapping("/update")
+    public boolean update(@RequestBody EmailRequest email) {
+        // FIXME: Use a @ControllerAdvice class and here only return ResponseEntity<Success>
+        return client.update(ApiToBusinessConversors.email(email));
     }
 
     @DeleteMapping("/delete")

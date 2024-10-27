@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="EmailApplication 2" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="com.gbtec.business.EmailApplication" />
+    <option name="MAIN_CLASS_NAME" value="com.gbtec.email.business.EmailApplication" />
     <module name="email-business" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local2" />
     <extension name="coverage">
