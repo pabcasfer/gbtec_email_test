@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum EmailState {
-    DRAFT(1), SENDING(2), SENT(3), DELETED(999), SPAM(5);
+    DRAFT(1), SENDING(2), SENT(3), DELETED(4), SPAM(5);
 
     @Getter
     private final int id;
