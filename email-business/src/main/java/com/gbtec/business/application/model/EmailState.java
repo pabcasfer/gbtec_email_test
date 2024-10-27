@@ -5,10 +5,10 @@ import lombok.Getter;
 import java.util.Arrays;
 import java.util.Optional;
 
+@Getter
 public enum EmailState {
     DRAFT(1), SENDING(2), SENT(3), DELETED(4), SPAM(5);
 
-    @Getter
     private final int id;
 
     EmailState(int id) {
