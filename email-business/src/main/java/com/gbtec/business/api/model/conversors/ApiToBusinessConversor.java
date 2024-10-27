@@ -7,7 +7,6 @@ import com.gbtec.business.application.model.EmailState;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class ApiToBusinessConversor {
 
@@ -25,11 +24,13 @@ public class ApiToBusinessConversor {
     }
 
     private static EmailState emailState(int state) {
-        final Optional<EmailState> foundState = EmailState.findById(state);
-        if(foundState.isEmpty()) {
-            throw new IllegalArgumentException("State not found");
-        }
-        return foundState.get();
+        return switch(state) {
+            case 1 -> EmailState.SENDING;
+            case 2 -> EmailState.DRAFT;
+            case 3 -> EmailState.DELETED;
+            case 4 -> EmailState.SPAM;
+            default -> throw new IllegalArgumentException("State not found");
+        };
     }
 
     private ApiToBusinessConversor() {

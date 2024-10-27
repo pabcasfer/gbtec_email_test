@@ -2,6 +2,7 @@ package com.gbtec.business.api.model.conversors;
 
 import com.gbtec.business.api.model.EmailDTO;
 import com.gbtec.business.application.model.EmailEntity;
+import com.gbtec.business.application.model.EmailState;
 
 public class BusinessToApiConversor {
 
@@ -15,7 +16,16 @@ public class BusinessToApiConversor {
                 .emailTo(email.shownReceivers())
                 .emailCC(email.hiddenReceivers())
                 .emailBody(email.getBody())
-                .state(email.getState().getId())
+                .state(convertState(email.getState()))
                 .build();
+    }
+
+    private static int convertState(EmailState state) {
+        return switch (state) {
+            case SENDING, SENT ->  1;
+            case DRAFT -> 2;
+            case DELETED -> 3;
+            case SPAM -> 4;
+        };
     }
 }

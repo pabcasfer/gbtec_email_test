@@ -13,7 +13,6 @@ public class EmailStateConverter implements AttributeConverter<EmailState, Integ
 
     @Override
     public EmailState convertToEntityAttribute(Integer id) {
-
         return EmailState.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 }
