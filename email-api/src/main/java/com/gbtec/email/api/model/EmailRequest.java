@@ -13,11 +13,11 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public final class Email {
+public final class EmailRequest {
     private Long emailId;
     private String emailFrom;
-    private List<EmailAccount> emailTo;
-    private List<EmailAccount> emailCC;
+    private List<EmailAccountRequest> emailTo;
+    private List<EmailAccountRequest> emailCC;
     private String emailBody;
     private int state;
 }

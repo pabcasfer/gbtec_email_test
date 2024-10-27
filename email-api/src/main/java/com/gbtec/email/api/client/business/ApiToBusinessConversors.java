@@ -1,14 +1,14 @@
 package com.gbtec.email.api.client.business;
 
 import com.gbtec.email.api.client.business.model.EmailDTO;
-import com.gbtec.email.api.model.Email;
-import com.gbtec.email.api.model.EmailAccount;
+import com.gbtec.email.api.model.EmailRequest;
+import com.gbtec.email.api.model.EmailAccountRequest;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public final class ApiToBusinessConversors {
-    public static EmailDTO email(Email email) {
+    public static EmailDTO email(EmailRequest email) {
         return EmailDTO.builder()
                 .emailId(email.getEmailId())
                 .emailFrom(email.getEmailFrom())
@@ -19,8 +19,8 @@ public final class ApiToBusinessConversors {
                 .build();
     }
 
-    private static List<String> extractEmails(List<EmailAccount> emailAccounts) {
-        return emailAccounts.stream().map(EmailAccount::getEmail).collect(Collectors.toList());
+    private static List<String> extractEmails(List<EmailAccountRequest> emailAccounts) {
+        return emailAccounts.stream().map(EmailAccountRequest::getEmail).collect(Collectors.toList());
     }
 
     private ApiToBusinessConversors() {

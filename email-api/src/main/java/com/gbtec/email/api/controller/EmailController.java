@@ -3,7 +3,7 @@ package com.gbtec.email.api.controller;
 import com.gbtec.email.api.client.business.ApiToBusinessConversors;
 import com.gbtec.email.api.client.business.EmailClient;
 import com.gbtec.email.api.client.business.model.EmailDTO;
-import com.gbtec.email.api.model.Email;
+import com.gbtec.email.api.model.EmailRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +28,7 @@ public class EmailController {
     }
 
     @PutMapping("/create")
-    public boolean create(@RequestBody Email email) {
+    public boolean create(@RequestBody EmailRequest email) {
         // FIXME: Use a @ControllerAdvice class and here only return ResponseEntity<Success>
         return client.create(ApiToBusinessConversors.email(email));
     }

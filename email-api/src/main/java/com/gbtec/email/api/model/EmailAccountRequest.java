@@ -11,6 +11,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class EmailAccount {
+public class EmailAccountRequest {
     private String email;
 }
