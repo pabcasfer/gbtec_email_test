@@ -1,18 +1,14 @@
 package com.gbtec.email.api.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
-@ToString
+@Data
 public final class EmailRequest {
     private Long emailId;
     private String emailFrom;

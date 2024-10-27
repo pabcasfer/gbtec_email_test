@@ -3,14 +3,15 @@ package com.gbtec.email.api.controller;
 import com.gbtec.email.api.client.business.ApiToBusinessConversors;
 import com.gbtec.email.api.client.business.EmailClient;
 import com.gbtec.email.api.client.business.model.EmailDTO;
+import com.gbtec.email.api.model.DeleteRequest;
 import com.gbtec.email.api.model.EmailRequest;
+import com.gbtec.email.api.model.FindByIdRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
@@ -23,8 +24,8 @@ public class EmailController {
     private EmailClient client;
 
     @GetMapping("/findById")
-    public Optional<EmailDTO> findById(@RequestParam("id") Long id) {
-        return client.findById(id);
+    public Optional<EmailDTO> findById(@RequestBody FindByIdRequest request) {
+        return client.findById(request.getId());
     }
 
     @PutMapping("/create")
@@ -34,7 +35,7 @@ public class EmailController {
     }
 
     @DeleteMapping("/delete")
-    public boolean delete(@RequestParam("id") Long id) {
-        return client.delete(id);
+    public boolean delete(@RequestBody DeleteRequest request) {
+        return client.delete(request.getId());
     }
 }
