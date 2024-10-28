@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 @Builder
@@ -20,9 +20,9 @@ public class EmailTransportDTO {
 
     private List<EmailReceiverTransportDTO> receivers;
 
-    private Timestamp creationTime;
+    private Instant creationTime;
 
-    private Timestamp lastModifiedTime;
+    private Instant lastModifiedTime;
 
     private EmailStateTransportDTO state;
 

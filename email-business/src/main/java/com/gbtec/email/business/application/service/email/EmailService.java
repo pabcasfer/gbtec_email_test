@@ -4,13 +4,16 @@ import com.gbtec.email.business.application.model.EmailEntity;
 import com.gbtec.email.business.application.model.EmailState;
 import com.gbtec.email.business.application.repository.email.EmailRepository;
 import com.gbtec.email.business.transport.service.email.EmailTransportService;
-import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 // FIXME: We should use custom exceptions
+@Slf4j
 @Service
 public class EmailService {
 
@@ -68,5 +71,30 @@ public class EmailService {
         if(EmailState.isTransport(insertedEmail.getState())) {
             transportService.send(insertedEmail);
         }
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void processReceived(EmailEntity email) {
+        final Optional<EmailEntity> persistedEmail = this.findByUuid(email.getUuid());
+        if(persistedEmail.isEmpty()) {
+            insertSentEmail(email);
+            return;
+        }
+        if(persistedEmail.get().getLastModifiedTime().isAfter(email.getLastModifiedTime())) {
+            log.warn("Email received but skipped processing due to a later-modified persisted email. " +
+                    "Received email {} Persisted email {}", email, persistedEmail.get());
+            return;
+        }
+        updateSentEmail(persistedEmail.get(), email);
+    }
+
+    private void insertSentEmail(EmailEntity email) {
+        email.setState(EmailState.SENT);
+        this.repository.insert(email);
+    }
+
+    private void updateSentEmail(EmailEntity persistedEmail, EmailEntity receivedEmail) {
+        receivedEmail.setState(EmailState.SENT);
+        this.repository.update(persistedEmail, receivedEmail);
     }
 }

@@ -1,5 +1,7 @@
 package com.gbtec.email.business.transport.comm;
 
+import com.gbtec.email.business.transport.comm.config.EmailRabbitConfiguration;
+import com.gbtec.email.business.transport.model.EmailTransportDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -20,17 +22,7 @@ public class EmailPublishController {
             backoff = @Backoff(delayExpression = "#{${server.retry.policy.delay:36000}}",
                     multiplierExpression = "#{${server.retry.policy.multiplier:2}}",
                     maxDelayExpression = "#{${server.retry.policy.max.delay:252000}}"))
-    public void sendEmail(String emailJson) throws AmqpException {
-        // Probably we need to generate this with the id info of the email
-        String correlationId = generateUniqueCorrelationId();
-        log.debug("Publishing email message with id {} and content {}", correlationId, emailJson);
-        rabbitTemplate.convertAndSend(RabbitConfiguration.QUEUE_NAME, emailJson, m -> {
-            m.getMessageProperties().setCorrelationId(correlationId);
-            return m;
-        });
-    }
-
-    private String generateUniqueCorrelationId() {
-        return "";
+    public void publish(EmailTransportDTO email) throws AmqpException {
+        rabbitTemplate.convertAndSend(EmailRabbitConfiguration.EXCHANGE_NAME, EmailRabbitConfiguration.QUEUE_NAME, email);
     }
 }

@@ -17,7 +17,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -47,10 +47,10 @@ public class EmailEntity {
     private List<EmailReceiverEntity> receivers;
 
     @CreationTimestamp
-    private Timestamp creationTime;
+    private Instant creationTime;
 
     @UpdateTimestamp
-    private Timestamp lastModifiedTime;
+    private Instant lastModifiedTime;
 
     @NonNull
     private EmailState state;
