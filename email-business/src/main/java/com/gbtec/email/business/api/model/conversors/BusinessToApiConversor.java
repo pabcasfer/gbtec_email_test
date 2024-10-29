@@ -4,6 +4,8 @@ import com.gbtec.email.business.api.model.EmailDTO;
 import com.gbtec.email.business.application.model.EmailEntity;
 import com.gbtec.email.business.application.model.EmailState;
 
+import java.util.List;
+
 public class BusinessToApiConversor {
 
     private BusinessToApiConversor() {
@@ -18,6 +20,10 @@ public class BusinessToApiConversor {
                 .emailBody(email.getBody())
                 .state(convertState(email.getState()))
                 .build();
+    }
+
+    public static List<EmailDTO> emails(List<EmailEntity> emailEntities) {
+        return emailEntities.stream().map(BusinessToApiConversor::email).toList();
     }
 
     private static int convertState(EmailState state) {

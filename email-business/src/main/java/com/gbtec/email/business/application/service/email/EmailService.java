@@ -1,6 +1,7 @@
 package com.gbtec.email.business.application.service.email;
 
 import com.gbtec.email.business.application.model.EmailEntity;
+import com.gbtec.email.business.application.model.EmailEntityFilter;
 import com.gbtec.email.business.application.model.EmailState;
 import com.gbtec.email.business.application.repository.email.EmailRepository;
 import com.gbtec.email.business.transport.service.email.EmailTransportService;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 // FIXME: We should use custom exceptions
@@ -96,5 +98,12 @@ public class EmailService {
     private void updateSentEmail(EmailEntity persistedEmail, EmailEntity receivedEmail) {
         receivedEmail.setState(EmailState.SENT);
         this.repository.update(persistedEmail, receivedEmail);
+    }
+
+    public List<EmailEntity> find(EmailEntityFilter filter){
+        if(filter.getStates().isPresent() && filter.getStates().getValue().contains(EmailState.SENDING)) {
+            filter.getStates().getValue().add(EmailState.SENT);
+        }
+        return this.repository.find(filter);
     }
 }

@@ -20,9 +20,10 @@
 	</properties>
 
 	<modules>
+		<module>email-utils</module>
 		<module>email-api</module>
 		<module>email-business</module>
-	</modules>
+    </modules>
 
 	<dependencies>
 		<dependency>

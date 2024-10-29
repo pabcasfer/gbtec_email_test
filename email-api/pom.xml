@@ -27,6 +27,11 @@
 	</scm>
 	<dependencies>
 		<dependency>
+			<groupId>com.gbtec</groupId>
+			<artifactId>email-utils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>

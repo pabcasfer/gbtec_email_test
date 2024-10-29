@@ -26,6 +26,11 @@
 	</scm>
 	<dependencies>
 		<dependency>
+			<groupId>com.gbtec</groupId>
+			<artifactId>email-utils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>

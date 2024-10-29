@@ -6,6 +6,7 @@ import com.gbtec.email.api.client.business.model.EmailDTO;
 import com.gbtec.email.api.model.DeleteRequest;
 import com.gbtec.email.api.model.EmailRequest;
 import com.gbtec.email.api.model.FindByIdRequest;
+import com.gbtec.email.api.model.FindRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -44,5 +46,10 @@ public class EmailController {
     @DeleteMapping("/delete")
     public boolean delete(@RequestBody DeleteRequest request) {
         return client.delete(request.getId());
+    }
+
+    @GetMapping("/find")
+    public List<EmailDTO> find(@RequestBody FindRequest request) {
+        return client.find(ApiToBusinessConversors.findRequestToFilter(request));
     }
 }
