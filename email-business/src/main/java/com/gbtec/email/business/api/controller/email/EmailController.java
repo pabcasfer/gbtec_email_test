@@ -39,7 +39,7 @@ public class EmailController {
 
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean update(@RequestBody EmailDTO email) {
-        return service.update(ApiToBusinessConversor.email(email));
+        return service.update(ApiToBusinessConversor.email(email), true);
     }
 
     @DeleteMapping(value = "/delete")

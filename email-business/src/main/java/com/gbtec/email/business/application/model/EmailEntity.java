@@ -18,6 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -44,7 +45,9 @@ public class EmailEntity {
     private String from;
 
     @OneToMany(mappedBy = "email", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EmailReceiverEntity> receivers;
+    @NonNull
+    @Builder.Default
+    private List<EmailReceiverEntity> receivers = new ArrayList<>();
 
     @CreationTimestamp
     private Instant creationTime;

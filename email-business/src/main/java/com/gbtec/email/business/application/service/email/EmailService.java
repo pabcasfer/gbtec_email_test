@@ -30,6 +30,12 @@ public class EmailService {
     }
 
     @Transactional
+    public boolean create(List<EmailEntity> emails) {
+        emails.forEach(this::create);
+        return true;
+    }
+
+    @Transactional
     public boolean create(EmailEntity email) {
         if(this.findByUuid(email.getUuid()).isPresent()) {
             throw new IllegalArgumentException("Uuid already in use");
@@ -42,13 +48,13 @@ public class EmailService {
     }
 
     @Transactional
-    public boolean update(EmailEntity email) {
+    public boolean update(EmailEntity email, boolean checkState) {
         final Optional<EmailEntity> findEmailResult = this.findByUuid(email.getUuid());
         if(findEmailResult.isEmpty()) {
             throw new IllegalStateException("Could not find an email with the given id");
         }
         final EmailEntity foundEmail = findEmailResult.get();
-        if(!foundEmail.getState().isUpdatable()) {
+        if(!foundEmail.getState().isUpdatable() && checkState) {
             throw new IllegalStateException("Given email id cannot be updated");
         }
         final EmailEntity insertedEmail = this.repository.update(foundEmail, email);
@@ -56,6 +62,11 @@ public class EmailService {
         sendEmailIfNecessary(insertedEmail);
 
         return true;
+    }
+
+    @Transactional
+    public void update(List<EmailEntity> emails, boolean checkState) {
+        emails.forEach(e -> update(e, checkState));
     }
 
     @Transactional

@@ -2,8 +2,12 @@ package com.gbtec.email.business.application.model;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 public enum EmailState {
@@ -25,5 +29,11 @@ public enum EmailState {
 
     public static boolean isTransport(EmailState state) {
         return SENDING.equals(state) || SENT.equals(state);
+    }
+
+    public static List<EmailState> notIn(EmailState... emailStates) {
+        return Arrays.stream(EmailState.values())
+                .filter(e -> Stream.of(emailStates).noneMatch(e::equals))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
