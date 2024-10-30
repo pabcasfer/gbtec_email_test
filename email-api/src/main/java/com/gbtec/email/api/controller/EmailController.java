@@ -31,13 +31,13 @@ public class EmailController {
         return client.findById(request.getId());
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public boolean create(@RequestBody EmailRequest email) {
         // FIXME: Use a @ControllerAdvice class and here only return ResponseEntity<Success>
         return client.create(ApiToBusinessConversors.email(email));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public boolean update(@RequestBody EmailRequest email) {
         // FIXME: Use a @ControllerAdvice class and here only return ResponseEntity<Success>
         return client.update(ApiToBusinessConversors.email(email));
