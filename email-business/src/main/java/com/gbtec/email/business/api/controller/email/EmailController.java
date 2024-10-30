@@ -34,13 +34,13 @@ public class EmailController {
     }
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean create(@RequestBody EmailDTO email) {
-        return service.create(ApiToBusinessConversor.email(email));
+    public boolean create(@RequestBody List<EmailDTO> emails) {
+        return service.create(ApiToBusinessConversor.emails(emails));
     }
 
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean update(@RequestBody EmailDTO email) {
-        return service.update(ApiToBusinessConversor.email(email), true);
+    public boolean update(@RequestBody List<EmailDTO> emails) {
+        return service.update(ApiToBusinessConversor.emails(emails), true);
     }
 
     @DeleteMapping(value = "/delete")

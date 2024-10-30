@@ -65,8 +65,9 @@ public class EmailService {
     }
 
     @Transactional
-    public void update(List<EmailEntity> emails, boolean checkState) {
+    public boolean update(List<EmailEntity> emails, boolean checkState) {
         emails.forEach(e -> update(e, checkState));
+        return true;
     }
 
     @Transactional

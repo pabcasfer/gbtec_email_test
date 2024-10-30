@@ -10,7 +10,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class ApiToBusinessConversors {
-    public static EmailDTO email(EmailRequest email) {
+    public static List<EmailDTO> emails(List<EmailRequest> emails) {
+        return emails.stream().map(ApiToBusinessConversors::email).toList();
+    }
+
+    private static EmailDTO email(EmailRequest email) {
         return EmailDTO.builder()
                 .emailId(email.getEmailId())
                 .emailFrom(email.getEmailFrom())

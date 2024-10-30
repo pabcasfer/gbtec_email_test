@@ -32,15 +32,15 @@ public class EmailController {
     }
 
     @PostMapping("/create")
-    public boolean create(@RequestBody EmailRequest email) {
+    public boolean create(@RequestBody List<EmailRequest> emails) {
         // FIXME: Use a @ControllerAdvice class and here only return ResponseEntity<Success>
-        return client.create(ApiToBusinessConversors.email(email));
+        return client.create(ApiToBusinessConversors.emails(emails));
     }
 
     @PutMapping("/update")
-    public boolean update(@RequestBody EmailRequest email) {
+    public boolean update(@RequestBody List<EmailRequest> emails) {
         // FIXME: Use a @ControllerAdvice class and here only return ResponseEntity<Success>
-        return client.update(ApiToBusinessConversors.email(email));
+        return client.update(ApiToBusinessConversors.emails(emails));
     }
 
     @DeleteMapping("/delete")

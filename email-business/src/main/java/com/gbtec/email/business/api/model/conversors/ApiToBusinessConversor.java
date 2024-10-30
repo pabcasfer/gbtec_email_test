@@ -14,7 +14,11 @@ import java.util.stream.Collectors;
 
 public class ApiToBusinessConversor {
 
-    public static EmailEntity email(EmailDTO email) {
+    public static List<EmailEntity> emails(List<EmailDTO> emails) {
+        return emails.stream().map(ApiToBusinessConversor::email).toList();
+    }
+
+    private static EmailEntity email(EmailDTO email) {
         final List<EmailReceiverEntity> receivers = new ArrayList<>();
         email.getEmailTo().forEach(emailAddress -> receivers.add(EmailReceiverEntity.builder().emailTo(emailAddress).hidden(false).build()));
         email.getEmailCC().forEach(emailAddress -> receivers.add(EmailReceiverEntity.builder().emailTo(emailAddress).hidden(true).build()));
