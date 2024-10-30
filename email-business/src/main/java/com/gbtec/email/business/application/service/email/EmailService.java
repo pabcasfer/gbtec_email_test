@@ -71,6 +71,7 @@ public class EmailService {
 
     private void sendEmailIfNecessary(EmailEntity insertedEmail) {
         if(EmailState.isTransport(insertedEmail.getState())) {
+            // FIXME: Validate if the email has some receiver
             transportService.send(insertedEmail);
         }
     }

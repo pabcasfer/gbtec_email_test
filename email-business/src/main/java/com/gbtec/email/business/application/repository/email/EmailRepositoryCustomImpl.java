@@ -67,7 +67,7 @@ public class EmailRepositoryCustomImpl implements EmailRepositoryCustom {
         final Expression<Long> uuids = root.get("uuid");
         final Expression<String> froms = root.get("from");
         final Expression<EmailState> state = root.get("state");
-        final Join<EmailEntity, EmailReceiverEntity> receivers = root.join("receivers", JoinType.INNER);
+         final Join<EmailEntity, EmailReceiverEntity> receivers = root.join("receivers", JoinType.LEFT);
         final Path<String> emailTo = receivers.get("emailTo");
         final Path<Boolean> hidden = receivers.get("hidden");
         final Path<String> body = root.get("body");
