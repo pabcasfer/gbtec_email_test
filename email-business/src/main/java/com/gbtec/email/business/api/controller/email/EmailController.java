@@ -2,9 +2,11 @@ package com.gbtec.email.business.api.controller.email;
 
 import com.gbtec.email.business.api.model.EmailDTO;
 import com.gbtec.email.business.api.model.EmailFilterDTO;
+import com.gbtec.email.business.api.model.SuccessOrErrorResponse;
 import com.gbtec.email.business.api.model.conversors.ApiToBusinessConversor;
 import com.gbtec.email.business.api.model.conversors.BusinessToApiConversor;
 import com.gbtec.email.business.application.model.EmailEntityFilter;
+import com.gbtec.email.business.application.model.EmailException;
 import com.gbtec.email.business.application.service.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.SpringQueryMap;
@@ -34,8 +36,13 @@ public class EmailController {
     }
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean create(@RequestBody List<EmailDTO> emails) {
-        return service.create(ApiToBusinessConversor.emails(emails));
+    public SuccessOrErrorResponse create(@RequestBody List<EmailDTO> emails) {
+        try {
+            service.create(ApiToBusinessConversor.emails(emails));
+            return SuccessOrErrorResponse.success();
+        } catch (EmailException e) {
+            return SuccessOrErrorResponse.error(BusinessToApiConversor.exception(e));
+        }
     }
 
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

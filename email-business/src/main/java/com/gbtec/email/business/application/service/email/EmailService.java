@@ -2,6 +2,8 @@ package com.gbtec.email.business.application.service.email;
 
 import com.gbtec.email.business.application.model.EmailEntity;
 import com.gbtec.email.business.application.model.EmailEntityFilter;
+import com.gbtec.email.business.application.model.EmailException;
+import com.gbtec.email.business.application.model.EmailExceptionType;
 import com.gbtec.email.business.application.model.EmailState;
 import com.gbtec.email.business.application.repository.email.EmailRepository;
 import com.gbtec.email.business.transport.service.email.EmailTransportService;
@@ -30,20 +32,29 @@ public class EmailService {
     }
 
     @Transactional
-    public boolean create(List<EmailEntity> emails) {
-        emails.forEach(this::create);
-        return true;
+    public void create(List<EmailEntity> emails) throws EmailException {
+        // Instead of breaking on the first email we can't process we could process all of them and aggregate all the
+        // errors in one call
+        for (EmailEntity email : emails) {
+            create(email);
+        }
     }
 
     @Transactional
-    public boolean create(EmailEntity email) {
+    public void create(EmailEntity email) throws EmailException {
         if(this.findByUuid(email.getUuid()).isPresent()) {
-            throw new IllegalArgumentException("Uuid already in use");
+            throw new EmailException(EmailExceptionType.UUID_ALREADY_IN_USE, "Uuid already in use");
         }
         final EmailEntity insertedEmail = this.repository.insert(email);
 
         sendEmailIfNecessary(insertedEmail);
+    }
 
+    @Transactional
+    public boolean update(List<EmailEntity> emails, boolean checkState) {
+        // Instead of breaking on the first email we can't process we could process all of them and aggregate all the
+        // errors in one call
+        emails.forEach(e -> update(e, checkState));
         return true;
     }
 
@@ -61,12 +72,6 @@ public class EmailService {
 
         sendEmailIfNecessary(insertedEmail);
 
-        return true;
-    }
-
-    @Transactional
-    public boolean update(List<EmailEntity> emails, boolean checkState) {
-        emails.forEach(e -> update(e, checkState));
         return true;
     }
 

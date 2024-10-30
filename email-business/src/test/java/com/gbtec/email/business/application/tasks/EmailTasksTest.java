@@ -1,6 +1,7 @@
 package com.gbtec.email.business.application.tasks;
 
 import com.gbtec.email.business.application.model.EmailEntity;
+import com.gbtec.email.business.application.model.EmailException;
 import com.gbtec.email.business.application.model.EmailState;
 import com.gbtec.email.business.application.service.email.EmailService;
 import com.gbtec.email.business.utils.model.EmailEntityMother;
@@ -71,7 +72,7 @@ public class EmailTasksTest {
     }
 
     @Test
-    public void executeMarkSpamEmailsWithoutMatchingEmails() {
+    public void executeMarkSpamEmailsWithoutMatchingEmails() throws EmailException {
         final List<EmailEntity> emails = new ArrayList<>();
         emails.add(EmailEntityMother.draftFromAddress("other@gbtec.es"));
         emails.add(EmailEntityMother.draftFromAddress("test@gbtec.es"));
@@ -87,7 +88,7 @@ public class EmailTasksTest {
     }
 
     @Test
-    public void executeMarkSpamEmailsWithMatchingEmails() {
+    public void executeMarkSpamEmailsWithMatchingEmails() throws EmailException {
         final List<EmailEntity> emails = new ArrayList<>();
         emails.add(EmailEntityMother.draftFromAddress(EmailTasks.EMAIL_ADDRESS_SPAM));
         emails.add(EmailEntityMother.draftFromAddress(EmailTasks.EMAIL_ADDRESS_SPAM));

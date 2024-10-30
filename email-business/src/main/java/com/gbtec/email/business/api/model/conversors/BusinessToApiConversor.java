@@ -1,7 +1,10 @@
 package com.gbtec.email.business.api.model.conversors;
 
 import com.gbtec.email.business.api.model.EmailDTO;
+import com.gbtec.email.business.api.model.EmailExceptionDTO;
 import com.gbtec.email.business.application.model.EmailEntity;
+import com.gbtec.email.business.application.model.EmailException;
+import com.gbtec.email.business.application.model.EmailExceptionType;
 import com.gbtec.email.business.application.model.EmailState;
 
 import java.util.List;
@@ -33,5 +36,13 @@ public class BusinessToApiConversor {
             case DELETED -> 3;
             case SPAM -> 4;
         };
+    }
+
+    public static EmailExceptionDTO exception(EmailException exception) {
+        return new EmailExceptionDTO(convertExceptionType(exception.getType()), exception.getMessage());
+    }
+
+    private static String convertExceptionType(EmailExceptionType type) {
+        return type.name();
     }
 }
