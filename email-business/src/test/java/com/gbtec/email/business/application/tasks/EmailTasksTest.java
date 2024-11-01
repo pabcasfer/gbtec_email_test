@@ -4,7 +4,7 @@ import com.gbtec.email.business.application.model.EmailEntity;
 import com.gbtec.email.business.application.model.EmailException;
 import com.gbtec.email.business.application.model.EmailState;
 import com.gbtec.email.business.application.service.email.EmailService;
-import com.gbtec.email.business.utils.model.EmailEntityMother;
+import com.gbtec.email.business.testutils.model.EmailEntityMother;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.scheduling.support.SimpleTriggerContext;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.Instant;
@@ -24,7 +25,8 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ActiveProfiles("integrationTest")
+@ActiveProfiles("test")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class EmailTasksTest {
     @Autowired
     private EmailTasks tasks;
@@ -74,9 +76,9 @@ public class EmailTasksTest {
     @Test
     public void executeMarkSpamEmailsWithoutMatchingEmails() throws EmailException {
         final List<EmailEntity> emails = new ArrayList<>();
-        emails.add(EmailEntityMother.draftFromAddress("other@gbtec.es"));
-        emails.add(EmailEntityMother.draftFromAddress("test@gbtec.es"));
-        emails.add(EmailEntityMother.draftFromAddress("a@gbtec.es"));
+        emails.add(EmailEntityMother.draftFromAddressWithoutReceivers("other@gbtec.es"));
+        emails.add(EmailEntityMother.draftFromAddressWithoutReceivers("test@gbtec.es"));
+        emails.add(EmailEntityMother.draftFromAddressWithoutReceivers("a@gbtec.es"));
         service.create(emails);
         tasks.markSpamEmails();
         Mockito.verify(service, Mockito.never()).update(Mockito.anyList(), Mockito.anyBoolean());
@@ -90,9 +92,9 @@ public class EmailTasksTest {
     @Test
     public void executeMarkSpamEmailsWithMatchingEmails() throws EmailException {
         final List<EmailEntity> emails = new ArrayList<>();
-        emails.add(EmailEntityMother.draftFromAddress(EmailTasks.EMAIL_ADDRESS_SPAM));
-        emails.add(EmailEntityMother.draftFromAddress(EmailTasks.EMAIL_ADDRESS_SPAM));
-        emails.add(EmailEntityMother.draftFromAddress(EmailTasks.EMAIL_ADDRESS_SPAM));
+        emails.add(EmailEntityMother.draftFromAddressWithoutReceivers(EmailTasks.EMAIL_ADDRESS_SPAM));
+        emails.add(EmailEntityMother.draftFromAddressWithoutReceivers(EmailTasks.EMAIL_ADDRESS_SPAM));
+        emails.add(EmailEntityMother.draftFromAddressWithoutReceivers(EmailTasks.EMAIL_ADDRESS_SPAM));
         service.create(emails);
         tasks.markSpamEmails();
         for(EmailEntity spamEmail : emails) {

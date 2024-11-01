@@ -1,4 +1,4 @@
-package com.gbtec.email.business.utils.model;
+package com.gbtec.email.business.testutils.model;
 
 import com.gbtec.email.business.transport.model.EmailReceiverTransportDTO;
 import com.gbtec.email.business.transport.model.EmailStateTransportDTO;
@@ -14,7 +14,7 @@ public class EmailTransportDTOMother {
 
     public static EmailTransportDTO sending() {
         return EmailTransportDTO.builder()
-                .uuid(RANDOM.nextLong(1, 999999))
+                .uuid(EntityUtils.randomLongId())
                 .from("a@gbtec.es")
                 .state(EmailStateTransportDTO.SENDING)
                 .body("body")

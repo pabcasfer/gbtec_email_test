@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Entity(name = "email")
-@Builder
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -52,6 +52,8 @@ public class EmailEntity {
     @CreationTimestamp
     private Instant creationTime;
 
+    // NOTE: We may want to persist the last time an user modified the email instead updating it every time we update
+    // the entity
     @UpdateTimestamp
     private Instant lastModifiedTime;
 

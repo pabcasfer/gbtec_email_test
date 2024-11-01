@@ -5,7 +5,7 @@ import com.gbtec.email.business.application.model.EmailState;
 import com.gbtec.email.business.application.service.email.EmailService;
 import com.gbtec.email.business.transport.comm.EmailPublishController;
 import com.gbtec.email.business.transport.model.EmailTransportDTO;
-import com.gbtec.email.business.utils.model.EmailTransportDTOMother;
+import com.gbtec.email.business.testutils.model.EmailTransportDTOMother;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,11 +15,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@ActiveProfiles("local1")
+@ActiveProfiles("test")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class EmailTransportIntegrationTest {
     @Autowired
     private EmailPublishController emailPublishController;
