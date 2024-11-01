@@ -21,6 +21,7 @@ import java.util.Optional;
 @Service
 public class EmailService {
 
+    public static final Comparator<EmailEntity> EMAIL_PERSIST_ORDER = Comparator.comparing(EmailEntity::getUuid);
     @Autowired
     private EmailRepository repository;
 
@@ -35,7 +36,7 @@ public class EmailService {
     public void create(List<EmailEntity> emails) throws EmailException {
         // Instead of breaking on the first email we can't process we could process all of them and aggregate all the
         // errors in one call
-        for (EmailEntity email : emails) {
+        for (EmailEntity email : emails.stream().sorted(EMAIL_PERSIST_ORDER).toList()) {
             create(email);
         }
     }
@@ -54,7 +55,7 @@ public class EmailService {
     public boolean update(List<EmailEntity> emails, boolean checkState) {
         // Instead of breaking on the first email we can't process we could process all of them and aggregate all the
         // errors in one call
-        emails.forEach(e -> update(e, checkState));
+        emails.stream().sorted(Comparator.comparing(EmailEntity::getUuid)).forEach(e -> update(e, checkState));
         return true;
     }
 
