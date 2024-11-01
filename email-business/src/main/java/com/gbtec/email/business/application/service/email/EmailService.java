@@ -8,15 +8,16 @@ import com.gbtec.email.business.application.model.EmailState;
 import com.gbtec.email.business.application.repository.email.EmailRepository;
 import com.gbtec.email.business.transport.service.email.EmailTransportService;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-// FIXME: We should use custom exceptions
 @Slf4j
 @Service
 public class EmailService {
@@ -28,11 +29,14 @@ public class EmailService {
     @Autowired
     private EmailTransportService transportService;
 
+    @Transactional(readOnly = true)
     public Optional<EmailEntity> findByUuid(Long uuid) {
-        return this.repository.findByUuid(uuid);
+        final Optional<EmailEntity> entity = this.repository.findByUuid(uuid);
+        entity.ifPresent(this::initializeLazyProperties);
+        return entity;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = EmailException.class)
     public void create(List<EmailEntity> emails) throws EmailException {
         // Instead of breaking on the first email we can't process we could process all of them and aggregate all the
         // errors in one call
@@ -41,8 +45,7 @@ public class EmailService {
         }
     }
 
-    @Transactional
-    public void create(EmailEntity email) throws EmailException {
+    private void create(EmailEntity email) throws EmailException {
         if(this.findByUuid(email.getUuid()).isPresent()) {
             throw new EmailException(EmailExceptionType.UUID_ALREADY_IN_USE, "Uuid already in use");
         }
@@ -119,10 +122,17 @@ public class EmailService {
         this.repository.update(persistedEmail, receivedEmail);
     }
 
+    @Transactional(readOnly = true)
     public List<EmailEntity> find(EmailEntityFilter filter){
         if(filter.getStates().isPresent() && filter.getStates().getValue().contains(EmailState.SENDING)) {
             filter.getStates().getValue().add(EmailState.SENT);
         }
-        return this.repository.find(filter);
+        final List<EmailEntity> emailEntities = this.repository.find(filter);
+        emailEntities.forEach(this::initializeLazyProperties);
+        return emailEntities;
+    }
+
+    private void initializeLazyProperties(EmailEntity email) {
+        Hibernate.initialize(email.getReceivers());
     }
 }
