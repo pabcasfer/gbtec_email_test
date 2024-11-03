@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "f817865a-5729-489f-a6ee-a4c5f996a2d8",
+		"name": "Emails",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "901586"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"emailId\" : 1435,\r\n        \"emailFrom\" : \"marcus@gbtec.es\",\r\n        \"emailTo\" : [\r\n            {\r\n                \"email\" : \"andrew@gbtec.es\"\r\n            },\r\n            {\r\n                \"email\" : \"peter@gbtec.es\"\r\n            }\r\n        ],\r\n        \"emailCC\" : [\r\n            {\r\n                \"email\" : \"carl@gbtec.es\"\r\n            }\r\n        ],\r\n        \"emailBody\" : \"Body text\",\r\n        \"state\" : 2\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/emails/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"emails",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"emailId\" : 1435,\r\n        \"emailFrom\" : \"marcus@gbtec.es\",\r\n        \"emailTo\" : [\r\n            {\r\n                \"email\" : \"andrew@gbtec.es\"\r\n            },\r\n            {\r\n                \"email\" : \"peter@gbtec.es\"\r\n            }\r\n        ],\r\n        \"emailCC\" : [\r\n            {\r\n                \"email\" : \"carl2@gbtec.es\"\r\n            },\r\n            {\r\n                \"email\" : \"a@gbtec.es\"\r\n            }\r\n        ],\r\n        \"emailBody\" : \"Body text2\",\r\n        \"state\" : 1\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/emails/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"emails",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": 1435}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/emails/findById",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"emails",
+						"findById"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uuids\": [1435, 1436], \r\n    \"states\": [1,2],\r\n    \"tos\": [\"andrew@gbtec.es\"] \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/emails/find",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"emails",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": 1435}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/emails/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"emails",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
