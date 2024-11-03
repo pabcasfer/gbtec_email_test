@@ -62,4 +62,7 @@ class EmailServiceTest {
     private void validateNotCreatedEmail(EmailEntity email) {
         Assertions.assertFalse(service.findByUuid(email.getUuid()).isPresent());
     }
+
+    // TODO: add tests that check the update functionality and check when we try to create or update an email with
+    //  sending state that we try to send it
 }
