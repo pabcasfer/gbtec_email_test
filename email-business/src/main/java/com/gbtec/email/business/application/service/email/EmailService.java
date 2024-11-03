@@ -23,6 +23,7 @@ import java.util.Optional;
 public class EmailService {
 
     public static final Comparator<EmailEntity> EMAIL_PERSIST_ORDER = Comparator.comparing(EmailEntity::getUuid);
+
     @Autowired
     private EmailRepository repository;
 
