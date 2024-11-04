@@ -21,12 +21,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/emails/create",
-					"protocol": "http",
+					"raw": "{{url}}/emails/create",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "8080",
 					"path": [
 						"emails",
 						"create"
@@ -50,12 +48,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/emails/update",
-					"protocol": "http",
+					"raw": "{{url}}/emails/update",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "8080",
 					"path": [
 						"emails",
 						"update"
@@ -82,12 +78,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/emails/findById",
-					"protocol": "http",
+					"raw": "{{url}}/emails/findById",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "8080",
 					"path": [
 						"emails",
 						"findById"
@@ -114,12 +108,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/emails/find",
-					"protocol": "http",
+					"raw": "{{url}}/emails/find",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "8080",
 					"path": [
 						"emails",
 						"find"
@@ -143,12 +135,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/emails/delete",
-					"protocol": "http",
+					"raw": "{{url}}/emails/delete",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "8080",
 					"path": [
 						"emails",
 						"delete"
